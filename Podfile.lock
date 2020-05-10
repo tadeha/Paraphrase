@@ -1,0 +1,16 @@
+PODS:
+  - SwiftyBeaver (1.9.1)
+
+DEPENDENCIES:
+  - SwiftyBeaver
+
+SPEC REPOS:
+  trunk:
+    - SwiftyBeaver
+
+SPEC CHECKSUMS:
+  SwiftyBeaver: a1f5691458561414bcfab51874b2b7445451602b
+
+PODFILE CHECKSUM: 42870342a8f196c30f5ed3e4747c7fdf9ea2a6a9
+
+COCOAPODS: 1.8.4
