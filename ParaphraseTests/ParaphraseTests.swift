@@ -28,7 +28,7 @@ class ParaphraseTests: XCTestCase {
     let model = QuotesModel(testing: true)
     
     guard let quote = model.random() else {
-      XCTFail()
+      XCTFail("Can not find a random quote from model")
       return
     }
     

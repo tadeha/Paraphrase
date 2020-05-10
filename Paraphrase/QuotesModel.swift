@@ -28,7 +28,7 @@ struct QuotesModel {
     
     // load our quote data
     let defaults = UserDefaults.standard
-    let quoteData : Data
+    let quoteData: Data
     
     if !testing, let savedQuotes = defaults.data(forKey: "SavedQuotes") {
       // we have saved quotes; use them
@@ -38,11 +38,12 @@ struct QuotesModel {
       // no saved quotes; load the default initial quotes
       SwiftyBeaver.info("No saved quotes")
       let path = Bundle.main.url(forResource: "initial-quotes", withExtension: "json")!
-      quoteData = try! Data(contentsOf: path)
+      quoteData = (try? Data(contentsOf: path)) ?? Data()
+      
     }
     
     let decoder = JSONDecoder()
-    quotes = try! decoder.decode([Quote].self, from: quoteData)
+    quotes = (try? decoder.decode([Quote].self, from: quoteData)) ?? [Quote]()
   }
   
   func random() -> Quote? {
@@ -83,9 +84,13 @@ struct QuotesModel {
     let defaults = UserDefaults.standard
     let encoder = JSONEncoder()
     
-    let data = try! encoder.encode(quotes)
-    defaults.set(data, forKey: "SavedQuotes")
-    SwiftyBeaver.info("Quotes saved")
+    do {
+        let data = try encoder.encode(quotes)
+        defaults.set(data, forKey: "SavedQuotes")
+        SwiftyBeaver.info("Quotes saved")
+    } catch {
+        SwiftyBeaver.error("Could not save quotes")
+    }
   }
   
 }
